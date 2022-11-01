@@ -1,0 +1,6 @@
+db.sqlite3
+templates/node_modules
+
+# ignore pyc files - thanks copilet
+*.pyc
+

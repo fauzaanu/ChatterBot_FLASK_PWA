@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='main.css') }}">
+    <title>SAGE CHATBOT</title>
+
+    <script src="{{ url_for('static',filename='sw-register.js') }}"></script>
+    <link rel="manifest" href="{{ url_for('static',filename='app.webmanifest') }}">
+
+    <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.png') }}" >
+    <meta name="theme-color" content="#ffc252">
+    <link rel="apple-touch-icon" href="{{ url_for('static',filename='icon-512.png') }}">
+</head>
+<body class="bg-gray-800 h-screen">
+    <!-- header  -->
+    <div  class="bg-green-900">
+        <p class="text-center text-white p-2">SAGE CHATBOT v.1.0.0</p>
+    </div>
+
+    <!-- the console window -->
+
+
+
+    <!-- first conv -->
+
+    <div class="bg-gray-700 p-2 rounded-lg m-10 absolute left-0">
+        <p id="sage-first" class="text-white
+        ">{{question}}</p>
+    </div>
+
+    
+
+    <!-- the resp -->
+
+    <div class="bg-gray-700 p-2 rounded-lg m-10 w-fit fixed right-0 top-32">
+        <p id="sage-response" class="text-white text-left
+        ">{{answer}}</p>
+    </div>
+   
+    
+
+
+    <div class=" absolute bottom-0 w-screen">
+        <div class=" h-24  m-10">
+            <form action="chat" method="get" class="grid grid-cols-6">
+                <input id="inp" name="question" class="p-2 bg-gray-700 col-span-5 text-4xl focus:outline-0 text-white" type="text" >
+                <button type="submit" class="bg-blue-600 col-span-1 text-white">ASK SAGE</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- make the form use ajax to send the data to the server and get the response back -->
+    <!-- the objective is to not show the user a reload of the page when the form is submitted -->
+
+    {% raw %}
+    <script>
+        const form = document.querySelector('form');
+        const inp = document.querySelector('#inp');
+        const sageFirst = document.querySelector('#sage-first');
+        const sageResponse = document.querySelector('#sage-response');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const question = inp.value;
+            sageFirst.textContent = question;
+            inp.value = '';
+
+
+            // do a silent reload of the page so that flask updates the values
+            // of the variables in the template
+            fetch('chat?question=' + question)
+            .then(response => response.text())
+            .then(data => {
+                // find the value of id="sage-response" in the html returned by server
+                const parser = new DOMParser();
+                const htmlDoc = parser.parseFromString(data, 'text/html');
+                const answer = htmlDoc.getElementById('sage-response').textContent;
+                sageResponse.textContent = answer;
+            })
+        })
+    </script>
+    {% endraw %}
+
+</body>
+</html>
