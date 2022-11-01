@@ -9,9 +9,8 @@ based on a 10% similarity of chatterbots Bestmatch logic adapter
 on the front, it's tailwindcss along with PWA functionality and some fetch JS code to make it look 
 native
 
-next is deploying
-
 options to explore tommrow:
+- deploy on ...
 - nGrok setup -- apprently it can SSL the site
 - is the cache really working? - we are not asking it to cache in web.appmanifest
 - run npx tailwindcss to update some stuff
