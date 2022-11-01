@@ -3,8 +3,13 @@
 A learning project - - - 
 
 using python3 flask and chatterbot to make a trainable on demand chatbot
-to train we should be sending it question|answer and it will know how to respond for that based
-based on a 10% similarity of chatterbots Bestmatch logic adapter
+
+to train we should be sending it `question|answer`
+
+example:
+`Why is the sky blue?|Just google it!`
+
+it will know how to respond for that basedbased on a 10% similarity of chatterbots Bestmatch logic adapter
 
 on the front, it's tailwindcss along with PWA functionality and some fetch JS code to make it look 
 native
